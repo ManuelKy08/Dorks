@@ -1,0 +1,91 @@
+body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 400px;
+}
+
+.container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    width: 100%;
+    max-width: 300px;
+    border-radius: 5px;
+    border: 1px solid #ff0000;
+    background-color: #30484e;
+    color: #ffffff;
+}
+
+.buttons-container {
+    margin-top: 20px;
+    margin-bottom: 30px; 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+button {
+    margin: 5px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #ff0000;
+    background-color: #d0ff00;
+    color: #000000;
+    cursor: pointer;
+    flex: 1 1 auto;
+    min-width: 150px; 
+}
+
+button:hover {
+    background-color: #444;
+}
+
+.google-dorks-section {
+    text-align: left;
+    margin-top: 50px;
+}
+
+.google-dorks-section h2 {
+    color: white;
+}
+
+.dork-list {
+    list-style: none;
+    padding: 0;
+}
+
+.dork-list li {
+    margin: 10px 0;
+}
+
+.dork-list a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.dork-list a:hover {
+    color: #1da1f2; 
+}
+
+.by-kokok {
+    margin-top: 40px; 
+    text-align: center;
+    font-size: 25px;
+}
+
+.by-kokok a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.by-kokok a:hover {
+    color: #ffffff; 
+}
