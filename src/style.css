@@ -1,91 +1,212 @@
 body {
-    background-color: #000000;
-    color: #ffffff;
-    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
     margin: 0;
     padding: 0;
-    margin-bottom: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
 }
 
-.container {
+.matrix-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 1200px;
+    width: 100%;
+    padding: 30px;
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+}
+
+#terminal-container {
+    border-right: 1px solid #00ff00;
+    padding-right: 25px;
+}
+
+#bug-bounty-dorks {
+    border-left: 1px solid #00ff00;
+    padding-left: 25px;
+}
+
+.terminal {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    max-height: 700px;
+}
+
+.header {
     text-align: center;
-    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+.title {
+    color: #00ff00;
+    font-size: 2em;
+    margin: 0;
+    text-shadow: 0 0 5px #00ff00;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-title {
+    color: #00ff00;
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.input-area {
+    margin-bottom: 20px;
 }
 
 input[type="text"] {
-    padding: 10px;
-    width: 100%;
-    max-width: 300px;
+    background-color: #001a00;
+    color: #00ff00;
+    border: 1px solid #00ff00;
     border-radius: 5px;
-    border: 1px solid #ff0000;
-    background-color: #30484e;
-    color: #ffffff;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    width: calc(100% - 22px);
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
 }
 
 .buttons-container {
-    margin-top: 20px;
-    margin-bottom: 30px; 
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    flex: 1;
+    overflow-y: auto;
+    max-height: 450px;
+    padding-right: 5px;
 }
 
 button {
-    margin: 5px;
-    padding: 10px 15px;
+    background-color: #003300;
+    color: #00ff00;
+    border: 1px solid #00ff00;
     border-radius: 5px;
-    border: 1px solid #ff0000;
-    background-color: #d0ff00;
-    color: #000000;
+    padding: 10px 15px;
+    font-family: 'Courier New', monospace;
     cursor: pointer;
+    transition: background-color 0.3s;
     flex: 1 1 auto;
-    min-width: 150px; 
+    min-width: 150px;
 }
 
 button:hover {
-    background-color: #444;
+    background-color: #006600;
 }
 
 .google-dorks-section {
-    text-align: left;
-    margin-top: 50px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+    box-sizing: border-box;
+    max-height: 700px;
+    overflow-y: auto;
 }
 
 .google-dorks-section h2 {
-    color: white;
+    color: #00ff00;
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px #00ff00;
+    font-size: 1.5em;
 }
 
 .dork-list {
     list-style: none;
     padding: 0;
+    line-height: 1.6;
 }
 
 .dork-list li {
-    margin: 10px 0;
+    margin-bottom: 5px;
 }
 
 .dork-list a {
-    color: white;
+    color: #00ff00;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 16px;
+    transition: color 0.3s;
 }
 
 .dork-list a:hover {
-    color: #1da1f2; 
+    color: #00cc00;
 }
 
-.by-kokok {
-    margin-top: 40px; 
-    text-align: center;
-    font-size: 25px;
+
+.matrix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
 }
 
-.by-kokok a {
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: bold;
+.matrix-bg span {
+    position: absolute;
+    color: #00ff00;
+    font-size: 1.2em;
+    white-space: nowrap;
+    animation: matrix-drop 12s linear infinite;
+    text-shadow: 0 0 3px #00ff00;
 }
 
-.by-kokok a:hover {
-    color: #ffffff; 
+
+@keyframes matrix-drop {
+    0% {
+        transform: translateY(-100vh);
+    }
+
+    100% {
+        transform: translateY(200vh);
+    }
+}
+
+@media (max-width: 768px) {
+    .matrix-container {
+        grid-template-columns: 1fr;
+        padding: 10px;
+        gap: 15px;
+    }
+
+    #terminal-container {
+        border-right: none;
+        padding-right: 0;
+    }
+
+    #bug-bounty-dorks {
+        border-left: none;
+        padding-left: 0;
+    }
+
+    .terminal,
+    .google-dorks-section {
+        max-height: none;
+        padding: 15px;
+    }
+
+    button {
+        min-width: 100%;
+    }
 }
