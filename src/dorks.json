@@ -1,0 +1,262 @@
+[
+    {
+      "name": "Directory listing vulnerabilities",
+      "dork": "site:example.com intitle:index.of"
+    },
+    {
+      "name": "Exposed Configuration files",
+      "dork": "site:example.com ext:xml | ext:conf | ext:cnf | ext:reg | ext:inf | ext:rdp | ext:cfg | ext:txt | ext:ora | ext:ini"
+    },
+    {
+      "name": "Exposed Database files",
+      "dork": "site:example.com ext:sql | ext:dbf | ext:mdb"
+    },
+    {
+      "name": "Exposed Log files",
+      "dork": "site:example.com ext:log"
+    },
+    {
+      "name": "WordPress",
+      "dork": "site:example.com inurl:wp- | inurl:wp-content | inurl:plugins | inurl:uploads | inurl:themes | inurl:download"
+    },
+    {
+      "name": "Backup and old files",
+      "dork": "site:example.com ext:bkf | ext:bkp | ext:bak | ext:old | ext:backup"
+    },
+    {
+      "name": "Login Pages",
+      "dork": "site:example.com inurl:login"
+    },
+    {
+      "name": "SQL Errors",
+      "dork": "site:example.com intext:\"sql syntax near\" | intext:\"syntax error has occurred\" | intext:\"incorrect syntax near\" | intext:\"unexpected end of SQL command\" | intext:\"Warning: mysql_connect()\" | intext:\"Warning: mysql_query()\" | intext:\"Warning: pg_connect()\""
+    },
+    {
+      "name": "Publicly Exposed Documents",
+      "dork": "site:example.com ext:doc | ext:docx | ext:odt | ext:pdf | ext:rtf | ext:sxw | ext:psw | ext:ppt | ext:pptx | ext:pps | ext:csv "
+    },
+      {
+      "name":"Apache config Files",
+      "dork":"site:example.com filetype:config apache"
+      },
+       {
+      "name":"Robots.txt",
+      "dork":"example.com/robots.txt"
+      },
+       {
+      "name":"phpinfo",
+      "dork":"site:example.com ext:php intitle:phpinfo published"
+      },
+       {
+      "name":"Finding Backdoors",
+      "dork":"site:example.com  inurl:shell | inurl:backdoor | inurl:wso | inurl:cmd | shadow | passwd | boot.ini | inurl:backdoor"
+      },
+       {
+      "name":"Install/Setup Files",
+      "dork":"site:example.com  inurl:readme | inurl:license | inurl:install | inurl:setup | inurl:config"
+      },
+        {
+      "name":"Open Redirects",
+      "dork":"site:example.com inurl:redir | inurl:url | inurl:redirect | inurl:return | inurl:src=http | inurl:r=http"
+      },
+        {
+      "name":"Apache STRUTS RCE",
+      "dork":"site:example.com ext:action | ext:struts | ext:do"
+      },
+        {
+      "name":"Find Pastebin Entries",
+      "dork":"site:pastebin.com example.com"
+      },
+        {
+      "name":"API Docs",
+      "dork":"inurl:apidocs | inurl:api-docs | inurl:swagger | inurl:api-explorer site:example.com"
+      },
+        {
+      "name":"3rd Party Exposure",
+      "dork":"site:http://ideone.com | site:http://codebeautify.org | site:http://codeshare.io | site:http://codepen.io | site:http://repl.it | site:http://justpaste.it | site:http://pastebin.com | site:http://jsfiddle.net | site:http://trello.com | site:*.atlassian.net | site:bitbucket.org example.com"
+      },
+        {
+      "name":"GitLab",
+      "dork":"inurl:gitlab example.com"
+      },
+       {
+      "name":".git folder",
+      "dork":"inurl:example.com /.git"
+      },
+        {
+      "name":"Employees on LinkedIn",
+      "dork":"site:linkedin.com employees example.com"
+      },
+        {
+      "name":".htaccess sensitive files",
+      "dork":"site:example.com.com inurl:/phpinfo.php | inurl:.htaccess"
+      },
+       {
+      "name":"JFrog Artifactory",
+      "dork":"site:jfrog.io \"example.com\""
+      },
+      {
+       "name":"Find Subdomains",
+      "dork":"site:*.example.com"
+      },
+       {
+      "name":"Find Sub-Subdomains",
+      "dork":"site:*.*.example.com"
+      },
+        {
+      "name":"Find WordPress #2",
+      "dork":"site:example.com inurl:wp-content | inurl:wp-includes"
+      },
+      {
+       "name":"Apache Server Status",
+       "dork":"site:*/server-status apache"
+      },
+       {
+      "name":"Search in Bitbucket and Atlassian",
+       "dork":"site:atlassian.net | site:bitbucket.org example.com"
+      },
+      {
+       "name":"Search in Stackoverflow",
+       "dork":"site:stackoverflow.com example.com"
+      },
+      {
+      "name":"Search in GitHub",
+      "dork":"https://github.com/search?q=%22*.example.com%22&type=host"
+      },
+          {
+      "name":"Search in OpenBugBounty",
+          "dork":"https://www.openbugbounty.org/search/?search=example.com"
+      },
+          {
+      "name":"Search in Reddit",
+      "dork":"https://www.reddit.com/search/?q=example.com&rdt=47774"
+      },
+          {
+      "name":"Search in Crt.sh",
+      "dork":"https://crt.sh/?q=%25.example.com"
+      },
+      {
+      "name":"Search in Shodan",
+      "dork":"https://www.shodan.io/search?query=example.com"
+      },
+          {
+      "name":"Check in Censys[ipv4]",
+      "dork":"https://censys.io/ipv4?q=example.com"
+      },
+          {
+      "name":"Check in Censys[Domains]",
+      "dork":"https://search.censys.io/domain?q=example.com"
+      },
+          {
+      "name":"Check in Censys[Certs]",
+      "dork":"https://search.censys.io/certificates?q=example.com"
+      },
+      {
+       "name":"Check in Security Headers",
+        "dork":"https://securityheaders.com/?q=example.com"
+      },
+       {
+          "name":"Find WordPress [Wayback Machine]",
+          "dork":"http://wwwb-dedup.us.archive.org:8083/cdx/search?url=example.com/&matchType=domain&collapse=digest&output=text&fl=original,timestamp&filter=urlkey:.*wp[-].*&limit=1000000&xx="
+      },
+      {
+       "name":"Digital Ocean Spaces",
+       "dork":"site:digitaloceanspaces.com example.com"
+      },
+      {
+          "name":"Firebase",
+          "dork":"site:firebaseio.com \"example.com\""
+      },
+         {
+          "name":"s3 Bucket",
+          "dork":"site:.s3.amazonaws.com example.com"
+      },
+          {
+          "name":"Google APIs",
+          "dork":"site:googleapis.com \"example.com\""
+      },
+          {
+          "name":"Google drive",
+          "dork":"site:drive.google.com \"example.com\""
+      },
+           {
+            "name":"Azure",
+          "dork":"site:dev.azure.com \"example.com\""
+      },
+          {
+          "name":"OneDrive",
+           "dork":"site:onedrive.live.com \"example.com\""
+      },
+          {
+          "name":"DropBox",
+          "dork":"site:dropbox.com/s \"example.com\""
+      },
+         {
+          "name":"Google Docs",
+          "dork":"site:docs.google.com inurl:\"/d/\" \"example.com\""
+      },
+      {
+          "name":"Search in Web Archive #1",
+           "dork":"https://web.archive.org/web/20240000000000*/(..example.com)"
+      },
+          {
+          "name":"Search in Web Archive #2",
+            "dork":"https://web.archive.org/web/*/example.com/*"
+      },
+          {
+          "name":"Reverse IP Lookup",
+            "dork":"https://viewdns.info/reverseip/?host=example.com&t=1"
+      },
+          {
+          "name":"Source Code-Public[WWW]",
+          "dork":"https://publicwww.com/websites/example.com"
+      },
+          {
+           "name":"What CMS?",
+          "dork":"https://whatcms.org/?s=example.com"
+      },
+      {
+          "name":"ArcGIS REST Services Directory",
+            "dork":"site:example.com intext:\"ArcGIS REST Services Directory\" intitle:\"Folder: /\""
+      },
+           {
+          "name":"Juicy Extensions",
+            "dork":"site:example.com ext:log | ext:txt | ext:conf | ext:cnf | ext:ini | ext:env | ext:sh | ext:bak | ext:backup | ext:swp | ext:old | ext:~ | ext:git | ext:svn | ext:htpasswd | ext:htaccess | ext:json"
+      },
+       {
+          "name":"XSS prone parameters",
+            "dork":"inurl:q= | inurl:s= | inurl:search= | inurl:query= | inurl:keyword= | inurl:lang= inurl:& site:example.com"
+      },
+      {
+          "name":"File upload endpoints",
+            "dork":"site:example.com ”choose file”"
+      },
+      {
+          "name":"Sensitive Documents",
+            "dork":"site:example.com ext:txt | ext:pdf | ext:xml | ext:xls | ext:xlsx | ext:ppt | ext:pptx | ext:doc | ext:docx intext:confidential | intext:Not for Public Release | intext:internal use only | intext:do not distribute"
+      },
+      {
+          "name":"Sensitive Parameters",
+            "dork":"inurl:email= | inurl:phone= | inurl:password= | inurl:secret= inurl:& site:example.com"
+      },
+       {
+         "name":"SSRF Prone Parameters",
+            "dork":"inurl:http | inurl:url= | inurl:path= | inurl:dest= | inurl:html= | inurl:data= | inurl:domain= | inurl:page= inurl:& site:example.com"
+      },
+        {
+         "name":"LFI Prone Parameters",
+            "dork":"inurl:include | inurl:dir | inurl:detail= | inurl:file= | inurl:folder= | inurl:inc= | inurl:locate= | inurl:doc= | inurl:conf= inurl:& site:example.com"
+      },
+        {
+         "name":"RCE Prone Parameters",
+            "dork":"inurl:cmd | inurl:exec= | inurl:query= | inurl:code= | inurl:do= | inurl:run= | inurl:read= | inurl:ping= inurl:& site:example.com"
+      },
+       {
+         "name":"Adobe Experience Manager (AEM)",
+           "dork":"inurl:/content/usergenerated | inurl:/content/dam | inurl:/jcr:content | inurl:/libs/granite | inurl:/etc/clientlibs | inurl:/content/geometrixx | inurl:/bin/wcm | inurl:/crx/de site:example.com"
+       },
+      {
+         "name":"Google Groups",
+            "dork":"site:groups.google.com \"example.com\""
+      }
+  ]
