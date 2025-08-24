@@ -3,136 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dorking Tool - Wedohacks</title>
+    <title>Dorking Tool - RRsec</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: 'Courier New', monospace;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            background-color: #1e1e1e;
-            color: #00ff00;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #00ff41;
             padding: 20px;
-            box-sizing: border-box;
-            text-align: center; /* Center text */
+            min-height: 100vh;
+            text-align: center;
         }
-        h1, h2 {
-            color: white;
-        }
+        
         h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #00ff00;
+            color: #ffffff;
+            font-size: 2.8em;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px #00ff41;
+            border-bottom: 2px solid #00ff41;
+            padding-bottom: 15px;
+            animation: glow 2s ease-in-out infinite alternate;
         }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #00ff41; }
+            to { text-shadow: 0 0 30px #00ff41, 0 0 40px #00ff41; }
+        }
+        
+        .input-container {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(0, 255, 65, 0.1);
+            border-radius: 10px;
+            border: 1px solid #00ff41;
+        }
+        
         label {
-            font-size: 1.2em;
-            display: block; /* Make label a block element */
-            margin-bottom: 10px; /* Space between label and input */
+            font-size: 1.3em;
+            display: block;
+            margin-bottom: 15px;
+            color: #ffffff;
+            font-weight: bold;
         }
+        
         input {
-            font-size: 1em;
-            padding: 10px;
-            width: 300px; /* Fixed width */
-            background-color: #333;
-            color: #00ff00;
-            border: 1px solid #00ff00;
-            text-align: center; /* Center text inside input */
+            font-size: 1.1em;
+            padding: 15px;
+            width: 350px;
+            background-color: #1a1a2e;
+            color: #00ff41;
+            border: 2px solid #00ff41;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
         }
+        
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 15px #00ff41;
+            transform: scale(1.05);
+        }
+        
+        input::placeholder {
+            color: #666;
+        }
+        
         ul {
             list-style-type: none;
             padding: 0;
-            text-align: left; /* Align list items to the left */
-            margin-top: 20px; /* Space above the list */
+            text-align: left;
+            margin-top: 30px;
         }
+        
         li {
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 8px;
+            border-left: 4px solid #00ff41;
+            transition: all 0.3s ease;
         }
+        
+        li:hover {
+            background: rgba(0, 255, 65, 0.1);
+            transform: translateX(10px);
+        }
+        
         a {
             text-decoration: none;
-            color: #00ff00;
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+            transition: color 0.3s ease;
         }
+        
         a:hover {
-            text-decoration: underline;
+            color: #ffffff;
+            text-shadow: 0 0 10px #00ff41;
         }
-        p {
-            margin: 0;
-        }
+        
         p.description {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: bold;
+            color: #ffffff;
+            font-size: 1.1em;
         }
+        
         footer {
+            margin-top: 40px;
+            padding: 20px;
+            text-align: center;
+            background: rgba(26, 26, 46, 0.8);
+            border-top: 2px solid #00ff41;
+            border-radius: 10px;
+            color: #00ff41;
+        }
+        
+        .status {
             margin-top: 20px;
             padding: 10px;
-            text-align: center;
-            background-color: #333;
-            border-top: 1px solid #00ff00;
-            color: #00ff00;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .status.active {
+            background: rgba(0, 255, 65, 0.2);
+            color: #00ff41;
+            border: 1px solid #00ff41;
         }
     </style>
 </head>
 <body>
-    <h1>Google Dorking Tool - Wedohacks</h1>
+    <h1>Google Dorking Tool - RRsec</h1>
     
-    <label for="domainInput">Enter a domain:</label>
-    <input type="text" id="domainInput" placeholder="wedohacks.com" oninput="updateDomain()">
+    <div class="input-container">
+        <label for="domainInput">Enter a domain:</label>
+        <input type="text" id="domainInput" placeholder="example.com" oninput="updateDomain()">
+        <div id="status" class="status"></div>
+    </div>
 
     <ul id="dorkList">
-        <li><p class="description">Broad Domain Search w/ negative search</p><a class="dorkLink" href="#">site:wedohacks.com -www -shop -share -ir -mfa</a></li>
-        <li><p class="description">PHP Extension w/ parameters</p><a class="dorkLink" href="#">site:wedohacks.com ext:php inurl:?</a></li>
-        <li><p class="description">API Endpoints</p><a class="dorkLink" href="#">site:wedohacks.com inurl:api | site:*/rest | site:*/v1 | site:*/v2 | site:*/v3</a></li>
-        <li><p class="description">Juicy Extensions</p><a class="dorkLink" href="#">site:wedohacks.com ext:log | ext:txt | ext:conf | ext:cnf | ext:ini | ext:env | ext:sh | ext:bak | ext:backup | ext:swp | ext:old | ext:~ | ext:git | ext:svn | ext:htpasswd | ext:htaccess | ext:json</a></li>
-        <li><p class="description">High % inurl Keywords</p><a class="dorkLink" href="#">site:wedohacks.com inurl:conf | inurl:env | inurl:cgi | inurl:bin | inurl:etc | inurl:root | inurl:sql | inurl:backup | inurl:admin | inurl:php</a></li>
-        <li><p class="description">Server Errors</p><a class="dorkLink" href="#">site:wedohacks.com inurl:"error" | intitle:"exception" | intitle:"failure" | intitle:"server at" | inurl:exception | "database error" | "SQL syntax" | "undefined index" | "unhandled exception" | "stack trace"</a></li>
-        <li><p class="description">XSS Parameters</p><a class="dorkLink" href="#">site:wedohacks.com inurl:q= | inurl:s= | inurl:search= | inurl:query= | inurl:keyword= | inurl:lang= | inurl:&</a></li>
-        <li><p class="description">Open Redirect Parameters</p><a class="dorkLink" href="#">site:wedohacks.com inurl:url= | inurl:return= | inurl:next= | inurl:redirect= | inurl:redir= | inurl:ret= | inurl:r2= | inurl:page= | inurl:& | inurl:http</a></li>
-        <li><p class="description">SQLi Parameters</p><a class="dorkLink" href="#">site:wedohacks.com inurl:id= | inurl:pid= | inurl:category= | inurl:cat= | inurl:action= | inurl:sid= | inurl:dir= | inurl:&</a></li>
-        <li><p class="description">SSRF Parameters</p><a class="dorkLink" href="#">site:wedohacks.com inurl:http | inurl:url= | inurl:path= | inurl:dest= | inurl:html= | inurl:data= | inurl:domain=  | inurl:page= inurl:&</a></li>
-        <li><p class="description">LFI Parameters</p><a class="dorkLink" href="#">site:wedohacks.com inurl:include | inurl:dir | inurl:detail= | inurl:file= | inurl:folder= | inurl:inc= | inurl:locate= | inurl:doc= | inurl:conf= inurl:&</a></li>
-        <li><p class="description">RCE Parameters</p><a class="dorkLink" href="#">site:wedohacks.com inurl:cmd | inurl:exec= | inurl:query= | inurl:code= | inurl:do= | inurl:run= | inurl:read=  | inurl:ping= inurl:&</a></li>
-        <li><p class="description">File upload Endpoints</p><a class="dorkLink" href="#">site:wedohacks.com "choose file"</a></li>
-        <li><p class="description">API Docs</p><a class="dorkLink" href="#">site:wedohacks.com inurl:apidocs | inurl:api-docs | inurl:swagger | inurl:api-explorer</a></li>
-        <li><p class="description">Login Pages</p><a class="dorkLink" href="#">site:wedohacks.com inurl:login | inurl:signin | intitle:login | intitle:signin | inurl:secure</a></li>
-        <li><p class="description">Test Environments</p><a class="dorkLink" href="#">site:wedohacks.com inurl:test | inurl:env | inurl:dev | inurl:staging | inurl:sandbox | inurl:debug | inurl:temp | inurl:internal | inurl:demo</a></li>
-        <li><p class="description">Sensitive Documents</p><a class="dorkLink" href="#">site:wedohacks.com ext:txt | ext:pdf | ext:xml | ext:xls | ext:xlsx | ext:ppt | ext:pptx | ext:doc | ext:docx | intext:"confidential" | intext:"Not for Public Release" | intext:"internal use only" | intext:"do not distribute"</a></li>
-        <li><p class="description">Sensitive Parameters</p><a class="dorkLink" href="#">site:wedohacks.com inurl:email= | inurl:phone= | inurl:password= | inurl:secret= inurl:&</a></li>
-        <li><p class="description">Adobe Experience Manager (AEM)</p><a class="dorkLink" href="#">site:wedohacks.com inurl:/content/usergenerated | inurl:/content/dam | inurl:/jcr:content | inurl:/libs/granite | inurl:/etc/clientlibs | inurl:/content/geometrixx | inurl:/bin/wcm | inurl:/crx/de</a></li>
-        <li><p class="description">Google Groups</p><a class="dorkLink" href="#">site:groups.google.com "wedohacks.com"</a></li>
-        <li><p class="description">Firebase</p><a class="dorkLink" href="#">site:firebaseio.com "wedohacks.com"</a></li>
-        <li><p class="description">JFrog Artifactory</p><a class="dorkLink" href="#">site:jfrog.io "wedohacks.com"</a></li>
-        <li><p class="description">Code Leaks</p><a class="dorkLink" href="#">site:pastebin.com "wedohacks.com"</a></li>
-        <li><p class="description">Disclosed XSS and Open Redirects</p><a class="dorkLink" href="#">intext:"wedohacks.com" site:openbugbounty.org inurl:reports</a></li>
+        <li><p class="description">Broad Domain Search w/ negative search</p><a class="dorkLink" href="#" data-template="site:{DOMAIN} -www -shop -share -ir -mfa">site:example.com -www -shop -share -ir -mfa</a></li>
+        <li><p class="description">PHP Extension w/ parameters</p><a class="dorkLink" href="#" data-template="site:{DOMAIN} ext:php inurl:?">site:example.com ext:php inurl:?</a></li>
+        <li><p class="description">API Endpoints</p><a class="dorkLink" href="#" data-template="site:{DOMAIN} inurl:api | site:*/rest | site:*/v1 | site:*/v2 | site:*/v3">site:example.com inurl:api | site:*/rest | site:*/v1 | site:*/v2 | site:*/v3</a></li>
+        <li><p class="description">Juicy Extensions</p><a class="dorkLink" href="#" data-template="site:{DOMAIN} ext:log | ext:txt | ext:conf | ext:cnf | ext:ini | ext:env | ext:sh | ext:bak | ext:backup | ext:swp | ext:old | ext:~ | ext:git | ext:svn | ext:htpasswd | ext:htaccess | ext:json">site:example.com ext:log | ext:txt | ext:conf | ext:cnf | ext:ini | ext:env | ext:sh | ext:bak | ext:backup | ext:swp | ext:old | ext:~ | ext:git | ext:svn | ext:htpasswd | ext:htaccess | ext:json</a></li>
+        <li><p class="description">High % inurl Keywords</p><a class="dorkLink" href="#" data-template="site:{DOMAIN} inurl:conf | inurl:env | inurl:cgi | inurl:bin | inurl:etc | inurl:root | inurl:sql | inurl:backup | inurl:admin | inurl:php">site:example.com inurl:conf | inurl:env | inurl:cgi | inurl:bin | inurl:etc | inurl:root | inurl:sql | inurl:backup | inurl:admin | inurl:php</a></li>
+        <li><p class="description">Server Errors</p><a class="dorkLink" href="#" data-template="site:{DOMAIN} inurl:\"error\" | intitle:\"exception\" | intitle:\"failure\" | intitle:\"server at\" | inurl:exception | \"database error\" | \"SQL syntax\" | \"undefined index\" | \"unhandled exception\" | \"stack trace\"">site:example.com inurl:"error" | intitle:"exception" | intitle:"failure" | intitle:"server at" | inurl:exception | "database error" | "SQL syntax" | "undefined index" | "unhandled exception" | "stack trace"</a></li>
+        <li><p class="description">XSS Parameters</p><a class="dorkLink" href="#" data-template="site:{DOMAIN} inurl:q= | inurl:s= | inurl:search= | inurl:query= | inurl:keyword= | inurl:lang= | inurl:&">site:example.com inurl:q= | inurl:s= | inurl:search= | inurl:query= | inurl:keyword= | inurl:lang= | inurl:&</a></li>
+        <li><p class="description">Open Redirect Parameters</p><a class="dorkLink" href="#" data-template="site:{DOMAIN} inurl:url= | inurl:return= | inurl:next= | inurl:redirect= | inurl:redir= | inurl:ret= | inurl:r2= | inurl:page= | inurl:& | inurl:http">site:example.com inurl:url= | inurl:return= | inurl:next= | inurl:redirect= | inurl:redir= | inurl:ret= | inurl:r2= | inurl:page= | inurl:& | inurl:http</a></li>
+        <li><p class="description">SQLi Parameters</p><a class="dorkLink" href="#" data-template="site:{DOMAIN} inurl:id= | inurl:pid= | inurl:category= | inurl:cat= | inurl:action= | inurl:sid= | inurl:dir= | inurl:&">site:example.com inurl:id= | inurl:pid= | inurl:category= | inurl:cat= | inurl:action= | inurl:sid= | inurl:dir= | inurl:&</a></li>
+        <li><p class="description">SSRF Parameters</p><a class="dorkLink" href="#" data-template="site:{DOMAIN} inurl:http | inurl:url= | inurl:path= | inurl:dest= | inurl:html= | inurl:data= | inurl:domain=  | inurl:page= inurl:&">site:example.com inurl:http | inurl:url= | inurl:path= | inurl:dest= | inurl:html= | inurl:data= | inurl:domain=  | inurl:page= inurl:&</a></li>
+        <li><p class="description">LFI Parameters</p><a class="dorkLink" href="#" data-template="site:{DOMAIN} inurl:include | inurl:dir | inurl:detail= | inurl:file= | inurl:folder= | inurl:inc= | inurl:locate= | inurl:doc= | inurl:conf= inurl:&">site:example.com inurl:include | inurl:dir | inurl:detail= | inurl:file= | inurl:folder= | inurl:inc= | inurl:locate= | inurl:doc= | inurl:conf= inurl:&</a></li>
+        <li><p class="description">RCE Parameters</p><a class="dorkLink" href="#" data-template="site:{DOMAIN} inurl:cmd | inurl:exec= | inurl:query= | inurl:code= | inurl:do= | inurl:run= | inurl:read=  | inurl:ping= inurl:&">site:example.com inurl:cmd | inurl:exec= | inurl:query= | inurl:code= | inurl:do= | inurl:run= | inurl:read=  | inurl:ping= inurl:&</a></li>
+        <li><p class="description">File upload Endpoints</p><a class="dorkLink" href="#" data-template="site:{DOMAIN} \"choose file\"">site:example.com "choose file"</a></li>
+        <li><p class="description">API Docs</p><a class="dorkLink" href="#" data-template="site:{DOMAIN} inurl:apidocs | inurl:api-docs | inurl:swagger | inurl:api-explorer">site:example.com inurl:apidocs | inurl:api-docs | inurl:swagger | inurl:api-explorer</a></li>
+        <li><p class="description">Login Pages</p><a class="dorkLink" href="#" data-template="site:{DOMAIN} inurl:login | inurl:signin | intitle:login | intitle:signin | inurl:secure">site:example.com inurl:login | inurl:signin | intitle:login | intitle:signin | inurl:secure</a></li>
+        <li><p class="description">Test Environments</p><a class="dorkLink" href="#" data-template="site:{DOMAIN} inurl:test | inurl:env | inurl:dev | inurl:staging | inurl:sandbox | inurl:debug | inurl:temp | inurl:internal | inurl:demo">site:example.com inurl:test | inurl:env | inurl:dev | inurl:staging | inurl:sandbox | inurl:debug | inurl:temp | inurl:internal | inurl:demo</a></li>
+        <li><p class="description">Sensitive Documents</p><a class="dorkLink" href="#" data-template="site:{DOMAIN} ext:txt | ext:pdf | ext:xml | ext:xls | ext:xlsx | ext:ppt | ext:pptx | ext:doc | ext:docx | intext:\"confidential\" | intext:\"Not for Public Release\" | intext:\"internal use only\" | intext:\"do not distribute\"">site:example.com ext:txt | ext:pdf | ext:xml | ext:xls | ext:xlsx | ext:ppt | ext:pptx | ext:doc | ext:docx | intext:"confidential" | intext:"Not for Public Release" | intext:"internal use only" | intext:"do not distribute"</a></li>
+        <li><p class="description">Sensitive Parameters</p><a class="dorkLink" href="#" data-template="site:{DOMAIN} inurl:email= | inurl:phone= | inurl:password= | inurl:secret= inurl:&">site:example.com inurl:email= | inurl:phone= | inurl:password= | inurl:secret= inurl:&</a></li>
+        <li><p class="description">Adobe Experience Manager (AEM)</p><a class="dorkLink" href="#" data-template="site:{DOMAIN} inurl:/content/usergenerated | inurl:/content/dam | inurl:/jcr:content | inurl:/libs/granite | inurl:/etc/clientlibs | inurl:/content/geometrixx | inurl:/bin/wcm | inurl:/crx/de">site:example.com inurl:/content/usergenerated | inurl:/content/dam | inurl:/jcr:content | inurl:/libs/granite | inurl:/etc/clientlibs | inurl:/content/geometrixx | inurl:/bin/wcm | inurl:/crx/de</a></li>
+        <li><p class="description">Google Groups</p><a class="dorkLink" href="#" data-template="site:groups.google.com \"{DOMAIN}\"">site:groups.google.com "example.com"</a></li>
+        <li><p class="description">Firebase</p><a class="dorkLink" href="#" data-template="site:firebaseio.com \"{DOMAIN}\"">site:firebaseio.com "example.com"</a></li>
+        <li><p class="description">JFrog Artifactory</p><a class="dorkLink" href="#" data-template="site:jfrog.io \"{DOMAIN}\"">site:jfrog.io "example.com"</a></li>
+        <li><p class="description">Code Leaks</p><a class="dorkLink" href="#" data-template="site:pastebin.com \"{DOMAIN}\"">site:pastebin.com "example.com"</a></li>
+        <li><p class="description">Disclosed XSS and Open Redirects</p><a class="dorkLink" href="#" data-template="intext:\"{DOMAIN}\" site:openbugbounty.org inurl:reports">intext:"example.com" site:openbugbounty.org inurl:reports</a></li>
     </ul>
 
-
     <footer>
-        <p>© WEDOHACKS. All rights reserved.</p>
-        <p><a href="https://wedohacks.github.io/" target="_blank" style="color: white;">Check out Here!</a></p>
-        <p>There is always one more bug to fix</p>
+        <p>&copy; 2024 RRsec - Google Dorking Tool | Use responsibly for security research only</p>
     </footer>
 
     <script>
         function updateDomain() {
             const domainInput = document.getElementById('domainInput').value.trim();
-            const dorkLinks = document.querySelectorAll(".dorkLink");
-
-            dorkLinks.forEach((link) => {
-                const originalDork = link.dataset.originalDork || link.textContent; // Get original dork if not already set
-                const updatedDork = originalDork.replace(/wedohacks\.com/g, domainInput || 'wedohacks.com');
-                
+            const statusDiv = document.getElementById('status');
+            const dorkLinks = document.querySelectorAll('.dorkLink');
+            
+            if (domainInput === '') {
+                // Reset to default if input is empty
+                dorkLinks.forEach(link => {
+                    const template = link.dataset.template;
+                    const defaultDork = template.replace(/{DOMAIN}/g, 'example.com');
+                    link.textContent = defaultDork;
+                    link.href = '#';
+                });
+                statusDiv.textContent = '';
+                statusDiv.className = 'status';
+                localStorage.removeItem('lastDomain');
+                return;
+            }
+            
+            // Validate domain format (basic validation)
+            const domainRegex = /^[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]?\.([a-zA-Z]{2,}|[a-zA-Z]{2,}\.[a-zA-Z]{2,})$/;
+            if (!domainRegex.test(domainInput)) {
+                statusDiv.textContent = 'Please enter a valid domain (e.g., example.com)';
+                statusDiv.className = 'status';
+                statusDiv.style.color = '#ff4444';
+                return;
+            }
+            
+            // Update all dork links
+            dorkLinks.forEach(link => {
+                const template = link.dataset.template;
+                const updatedDork = template.replace(/{DOMAIN}/g, domainInput);
                 link.textContent = updatedDork;
                 link.href = `https://www.google.com/search?q=${encodeURIComponent(updatedDork)}`;
-                link.dataset.originalDork = originalDork; // Store original dork for future updates
             });
+            
+            // Update status
+            statusDiv.textContent = `Domain set to: ${domainInput} | ${dorkLinks.length} dorks ready`;
+            statusDiv.className = 'status active';
+            statusDiv.style.color = '#00ff41';
+            
+            // Save domain to localStorage
+            localStorage.setItem('lastDomain', domainInput);
         }
-	// //Umbikkalle Mone Dasa....
+        
         // Load last domain on page load
         window.onload = () => {
             const lastDomain = localStorage.getItem('lastDomain');
             if (lastDomain) {
                 document.getElementById('domainInput').value = lastDomain;
-                updateDomain(); // Update dorks with the last domain
+                updateDomain();
             }
         };
+        
+        // Add click event to copy dork to clipboard
+        document.addEventListener('DOMContentLoaded', function() {
+            const dorkLinks = document.querySelectorAll('.dorkLink');
+            dorkLinks.forEach(link => {
+                link.addEventListener('contextmenu', function(e) {
+                    e.preventDefault();
+                    navigator.clipboard.writeText(this.textContent).then(() => {
+                        const originalText = this.textContent;
+                        this.textContent = 'Copied to clipboard!';
+                        setTimeout(() => {
+                            this.textContent = originalText;
+                        }, 1000);
+                    });
+                });
+            });
+        });
     </script>
 </body>
 </html>
