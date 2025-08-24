@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dorking Tool - Wedohacks</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #1e1e1e;
+            color: #00ff00;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center; /* Center text */
+        }
+        h1, h2 {
+            color: white;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #00ff00;
+        }
+        label {
+            font-size: 1.2em;
+            display: block; /* Make label a block element */
+            margin-bottom: 10px; /* Space between label and input */
+        }
+        input {
+            font-size: 1em;
+            padding: 10px;
+            width: 300px; /* Fixed width */
+            background-color: #333;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            text-align: center; /* Center text inside input */
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left; /* Align list items to the left */
+            margin-top: 20px; /* Space above the list */
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            text-decoration: none;
+            color: #00ff00;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        p {
+            margin: 0;
+        }
+        p.description {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            text-align: center;
+            background-color: #333;
+            border-top: 1px solid #00ff00;
+            color: #00ff00;
+        }
+    </style>
+</head>
+<body>
+    <h1>Google Dorking Tool - Wedohacks</h1>
+    
+    <label for="domainInput">Enter a domain:</label>
+    <input type="text" id="domainInput" placeholder="wedohacks.com" oninput="updateDomain()">
+
+    <ul id="dorkList">
+        <li><p class="description">Broad Domain Search w/ negative search</p><a class="dorkLink" href="#">site:wedohacks.com -www -shop -share -ir -mfa</a></li>
+        <li><p class="description">PHP Extension w/ parameters</p><a class="dorkLink" href="#">site:wedohacks.com ext:php inurl:?</a></li>
+        <li><p class="description">API Endpoints</p><a class="dorkLink" href="#">site:wedohacks.com inurl:api | site:*/rest | site:*/v1 | site:*/v2 | site:*/v3</a></li>
+        <li><p class="description">Juicy Extensions</p><a class="dorkLink" href="#">site:wedohacks.com ext:log | ext:txt | ext:conf | ext:cnf | ext:ini | ext:env | ext:sh | ext:bak | ext:backup | ext:swp | ext:old | ext:~ | ext:git | ext:svn | ext:htpasswd | ext:htaccess | ext:json</a></li>
+        <li><p class="description">High % inurl Keywords</p><a class="dorkLink" href="#">site:wedohacks.com inurl:conf | inurl:env | inurl:cgi | inurl:bin | inurl:etc | inurl:root | inurl:sql | inurl:backup | inurl:admin | inurl:php</a></li>
+        <li><p class="description">Server Errors</p><a class="dorkLink" href="#">site:wedohacks.com inurl:"error" | intitle:"exception" | intitle:"failure" | intitle:"server at" | inurl:exception | "database error" | "SQL syntax" | "undefined index" | "unhandled exception" | "stack trace"</a></li>
+        <li><p class="description">XSS Parameters</p><a class="dorkLink" href="#">site:wedohacks.com inurl:q= | inurl:s= | inurl:search= | inurl:query= | inurl:keyword= | inurl:lang= | inurl:&</a></li>
+        <li><p class="description">Open Redirect Parameters</p><a class="dorkLink" href="#">site:wedohacks.com inurl:url= | inurl:return= | inurl:next= | inurl:redirect= | inurl:redir= | inurl:ret= | inurl:r2= | inurl:page= | inurl:& | inurl:http</a></li>
+        <li><p class="description">SQLi Parameters</p><a class="dorkLink" href="#">site:wedohacks.com inurl:id= | inurl:pid= | inurl:category= | inurl:cat= | inurl:action= | inurl:sid= | inurl:dir= | inurl:&</a></li>
+        <li><p class="description">SSRF Parameters</p><a class="dorkLink" href="#">site:wedohacks.com inurl:http | inurl:url= | inurl:path= | inurl:dest= | inurl:html= | inurl:data= | inurl:domain=  | inurl:page= inurl:&</a></li>
+        <li><p class="description">LFI Parameters</p><a class="dorkLink" href="#">site:wedohacks.com inurl:include | inurl:dir | inurl:detail= | inurl:file= | inurl:folder= | inurl:inc= | inurl:locate= | inurl:doc= | inurl:conf= inurl:&</a></li>
+        <li><p class="description">RCE Parameters</p><a class="dorkLink" href="#">site:wedohacks.com inurl:cmd | inurl:exec= | inurl:query= | inurl:code= | inurl:do= | inurl:run= | inurl:read=  | inurl:ping= inurl:&</a></li>
+        <li><p class="description">File upload Endpoints</p><a class="dorkLink" href="#">site:wedohacks.com "choose file"</a></li>
+        <li><p class="description">API Docs</p><a class="dorkLink" href="#">site:wedohacks.com inurl:apidocs | inurl:api-docs | inurl:swagger | inurl:api-explorer</a></li>
+        <li><p class="description">Login Pages</p><a class="dorkLink" href="#">site:wedohacks.com inurl:login | inurl:signin | intitle:login | intitle:signin | inurl:secure</a></li>
+        <li><p class="description">Test Environments</p><a class="dorkLink" href="#">site:wedohacks.com inurl:test | inurl:env | inurl:dev | inurl:staging | inurl:sandbox | inurl:debug | inurl:temp | inurl:internal | inurl:demo</a></li>
+        <li><p class="description">Sensitive Documents</p><a class="dorkLink" href="#">site:wedohacks.com ext:txt | ext:pdf | ext:xml | ext:xls | ext:xlsx | ext:ppt | ext:pptx | ext:doc | ext:docx | intext:"confidential" | intext:"Not for Public Release" | intext:"internal use only" | intext:"do not distribute"</a></li>
+        <li><p class="description">Sensitive Parameters</p><a class="dorkLink" href="#">site:wedohacks.com inurl:email= | inurl:phone= | inurl:password= | inurl:secret= inurl:&</a></li>
+        <li><p class="description">Adobe Experience Manager (AEM)</p><a class="dorkLink" href="#">site:wedohacks.com inurl:/content/usergenerated | inurl:/content/dam | inurl:/jcr:content | inurl:/libs/granite | inurl:/etc/clientlibs | inurl:/content/geometrixx | inurl:/bin/wcm | inurl:/crx/de</a></li>
+        <li><p class="description">Google Groups</p><a class="dorkLink" href="#">site:groups.google.com "wedohacks.com"</a></li>
+        <li><p class="description">Firebase</p><a class="dorkLink" href="#">site:firebaseio.com "wedohacks.com"</a></li>
+        <li><p class="description">JFrog Artifactory</p><a class="dorkLink" href="#">site:jfrog.io "wedohacks.com"</a></li>
+        <li><p class="description">Code Leaks</p><a class="dorkLink" href="#">site:pastebin.com "wedohacks.com"</a></li>
+        <li><p class="description">Disclosed XSS and Open Redirects</p><a class="dorkLink" href="#">intext:"wedohacks.com" site:openbugbounty.org inurl:reports</a></li>
+    </ul>
+
+
+    <footer>
+        <p>© WEDOHACKS. All rights reserved.</p>
+        <p><a href="https://wedohacks.github.io/" target="_blank" style="color: white;">Check out Here!</a></p>
+        <p>There is always one more bug to fix</p>
+    </footer>
+
+    <script>
+        function updateDomain() {
+            const domainInput = document.getElementById('domainInput').value.trim();
+            const dorkLinks = document.querySelectorAll(".dorkLink");
+
+            dorkLinks.forEach((link) => {
+                const originalDork = link.dataset.originalDork || link.textContent; // Get original dork if not already set
+                const updatedDork = originalDork.replace(/wedohacks\.com/g, domainInput || 'wedohacks.com');
+                
+                link.textContent = updatedDork;
+                link.href = `https://www.google.com/search?q=${encodeURIComponent(updatedDork)}`;
+                link.dataset.originalDork = originalDork; // Store original dork for future updates
+            });
+        }
+	// //Umbikkalle Mone Dasa....
+        // Load last domain on page load
+        window.onload = () => {
+            const lastDomain = localStorage.getItem('lastDomain');
+            if (lastDomain) {
+                document.getElementById('domainInput').value = lastDomain;
+                updateDomain(); // Update dorks with the last domain
+            }
+        };
+    </script>
+</body>
+</html>
